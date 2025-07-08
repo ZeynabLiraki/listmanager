@@ -1,0 +1,14 @@
+body {
+  background-color: #f1efef !important;
+  font-family: "Segoe UI", sans-serif;
+}
+
+#list-container {
+  margin-top: 60px;
+}
+
+
+.remove-button:hover {
+  background-color: #dc3545 !important; 
+  color: white;
+}
