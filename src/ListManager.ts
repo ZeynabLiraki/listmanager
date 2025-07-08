@@ -14,6 +14,8 @@ export class ListManager {
     this.$container = $container;
     this.renderUI();
     this.bindEvents();
+
+    this.$input[0]?.focus();
   }
 
   private renderUI(): void {
@@ -46,6 +48,7 @@ export class ListManager {
 
     this.$list.on("click", ".remove-button", (e: JQuery.ClickEvent) => {
       $(e.currentTarget).closest("li").remove();
+      this.$input[0]?.focus();
     });
   }
 
@@ -63,6 +66,7 @@ export class ListManager {
     `);
     this.$list.append($item);
     this.$input.val("");
+    this.$input[0]?.focus();
   }
 
   public getItems(): string[] {
