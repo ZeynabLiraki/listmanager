@@ -42,7 +42,7 @@ export class ListManager {
   private bindEvents(): void {
     this.$button.on("click", () => this.addItemFromInput());
 
-    this.$input.on("keypress", (e: JQuery.KeyPressEvent) => {
+    this.$input.on("keydown", (e: JQuery.KeyDownEvent) => {
       if (e.which === 13) this.addItemFromInput();
     });
 
