@@ -1,4 +1,5 @@
 import $ from "jquery";
+import { v4 as uuidv4 } from "uuid";
 
 export class ListManager {
   private $container: JQuery<HTMLElement>;
@@ -56,8 +57,11 @@ export class ListManager {
     const value = this.$input.val()?.toString().trim();
     if (!value) return;
 
+    const itemId = uuidv4();
+
     const $item = $(`
-    <li class="list-group-item d-flex justify-content-between align-items-center border rounded px-3 py-2 shadow-sm">
+    <li class="list-group-item d-flex justify-content-between align-items-center border rounded px-3 py-2 shadow-sm"
+    data-id="${itemId}">
       <span>${value}</span>
       <button class="btn btn-outline-danger btn-sm remove-button bg-danger-subtle" title="Remove">
         ✕
@@ -69,11 +73,12 @@ export class ListManager {
     this.$input[0]?.focus();
   }
 
-  public getItems(): string[] {
-    const items: string[] = [];
+  public getItemObjects(): { id: string; text: string }[] {
+    const items: { id: string; text: string }[] = [];
     this.$list.find("li").each(function () {
+      const id = $(this).attr("data-id") || "";
       const text = $(this).clone().children().remove().end().text().trim();
-      if (text) items.push(text);
+      if (id && text) items.push({ id, text });
     });
     return items;
   }

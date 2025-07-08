@@ -3,8 +3,10 @@
     "target": "ES5",
     "module": "ESNext",
     "strict": true,
+    "outDir": "./dist",
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "outDir": "./dist"
+    "resolveJsonModule": true
   },
   "include": ["src"]
 }
