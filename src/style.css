@@ -12,3 +12,35 @@ body {
   background-color: #dc3545 !important; 
   color: white;
 }
+
+
+.my-input {
+  border: 2px solid #007bff;
+  background-color: #eef7ff;
+  padding: 0.5rem;
+}
+
+.my-button {
+  background-color: #007bff;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  border: none;
+}
+
+.my-list {
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.my-item {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+}
+
+.my-remove-btn {
+  color: red;
+  font-weight: bold;
+}

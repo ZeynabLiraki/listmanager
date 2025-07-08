@@ -1,21 +1,32 @@
 import $ from "jquery";
 import { v4 as uuidv4 } from "uuid";
 
+interface ListManagerConfig {
+  inputClass?: string;
+  buttonClass?: string;
+  listClass?: string;
+  itemClass?: string;
+  removeButtonClass?: string;
+}
+
 export class ListManager {
   private $container: JQuery<HTMLElement>;
   private $input!: JQuery<HTMLInputElement>;
   private $button!: JQuery<HTMLButtonElement>;
   private $list!: JQuery<HTMLUListElement>;
+  private config: ListManagerConfig;
 
-  constructor(containerId: string) {
+  constructor(containerId: string, config: ListManagerConfig = {}) {
     const $container = $(`#${containerId}`);
     if ($container.length === 0) {
       throw new Error(`Container with ID "${containerId}" not found.`);
     }
+
     this.$container = $container;
+    this.config = config;
+
     this.renderUI();
     this.bindEvents();
-
     this.$input[0]?.focus();
   }
 
@@ -24,10 +35,22 @@ export class ListManager {
      <div class="card shadow-sm rounded-4 p-4 border-0" style="max-width: 400px; margin: auto;">
       <h4 class="mb-3 fw-bold text-primary">To-Do List</h4>
       <div class="input-group mb-3">
-        <input type="text" id="item-input" class="form-control" placeholder="Enter item" />
-        <button id="add-button" class="btn btn-primary ml-3">Add Item</button>
+        <input 
+          type="text" 
+          id="item-input" 
+          class="form-control ${this.config.inputClass ?? ""}" 
+          placeholder="Enter item" 
+        />
+        <button 
+          id="add-button" 
+          class="btn btn-primary ml-3 ${this.config.buttonClass ?? ""}">
+          Add Item
+        </button>
       </div>
-      <ul id="item-list" class="list-group gap-2"></ul>
+      <ul 
+        id="item-list" 
+        class="list-group gap-2 ${this.config.listClass ?? ""}">
+      </ul>
     </div>
     `;
     this.$container.html(html);
@@ -60,13 +83,20 @@ export class ListManager {
     const itemId = uuidv4();
 
     const $item = $(`
-    <li class="list-group-item d-flex justify-content-between align-items-center border rounded px-3 py-2 shadow-sm"
-    data-id="${itemId}">
-      <span>${value}</span>
-      <button class="btn btn-outline-danger btn-sm remove-button bg-danger-subtle" title="Remove">
-        ✕
-      </button>
-    </li>
+      <li 
+        class="list-group-item d-flex justify-content-between align-items-center border rounded px-3 py-2 shadow-sm ${
+          this.config.itemClass ?? ""
+        }" 
+        data-id="${itemId}">
+        <span>${value}</span>
+        <button 
+          class="btn btn-outline-danger btn-sm remove-button bg-danger-subtle ${
+            this.config.removeButtonClass ?? ""
+          }" 
+          title="Remove">
+          ✕
+        </button>
+      </li>
     `);
     this.$list.append($item);
     this.$input.val("");
