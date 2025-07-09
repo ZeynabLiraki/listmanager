@@ -1,4 +1,4 @@
-import { ListManager } from "../components/ListManager";
+import { ListManager } from "../core/ListManager";
 
 describe("ListManager", () => {
   let container: HTMLElement;
@@ -141,7 +141,7 @@ describe("ListManager", () => {
 
     expect(() => {
       new ListManager("non-existent-container");
-    }).toThrow(/Container with ID "non-existent-container" not found./);
+    }).toThrow(/Element with ID "non-existent-container" not found/);
   });
 
   it("should clear input and focus after adding item", () => {

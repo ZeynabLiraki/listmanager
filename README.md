@@ -2,8 +2,9 @@
 
 📝 ListManager
 
-A lightweight and modular TypeScript class built with jQuery and styled using Bootstrap, which allows dynamic management of a to-do list. Users can add, remove, get and clear items easily via keyboard or mouse interaction.Bundled using Webpack for efficient development and deployment.
-This project demonstrates clean UI integration, accessibility, best practices, and simple state management for list items.
+ListManager is a lightweight, modular TypeScript class built with jQuery and styled using Bootstrap, designed to dynamically manage a to-do list. Users can easily add, remove, retrieve, and clear items via keyboard or mouse interactions. The project is bundled using Webpack for efficient development and deployment.
+
+This project demonstrates clean UI integration, accessibility features, best practices, and simple state management for list items.
 
 
 ## 📚 Table of Contents
@@ -20,32 +21,42 @@ This project demonstrates clean UI integration, accessibility, best practices, a
 
 ## 🚀Introduction
 
-This project implements a List Manager UI component using:
-- TypeScript for static typing and OOP design
-- jQuery for DOM manipulation and event handling
-- Bootstrap 5 for responsive styling and layout
-- The ListManager class encapsulates the entire UI and logic for managing a to-do list with support   for adding items through input and then click on button or press Enter key, removing each items, getting Items and clearing the list. 
-- accessibility attributes for screen readers and keyboard interaction.
+This project implements a modular List Manager UI component using:
+
+- TypeScript for static typing and OOP-based design
+- jQuery for intuitive DOM manipulation and event handling
+- Bootstrap 4 for responsive styling and layout
+- Webpack for module bundling and asset management
+
+The ListManager class encapsulates all logic and UI behavior, supporting:
+
+- Adding items via input + button or by pressing the Enter key
+- Removing individual items
+- Retrieving all list items
+- Clearing the entire list
+- Focus handling and input reset
+- Basic accessibility for screen readers and keyboard users
+
 
 ## 🛠Technologies Used
 
 Mention the technologies and frameworks used in the project:
-- TypeScript for type-safe, modular JavaScript
-- jQuery for DOM manipulation and event handling
-- Bootstrap 4/5 for responsive UI styling
-- Webpack for module bundling and asset management
-- uuid for generating unique IDs for list items
-- Jest (for testing)
+- TypeScript: Type-safe, object-oriented JavaScript
+- jQuery: Simplified DOM interaction
+- Bootstrap 4: Responsive and modern UI styling
+- Webpack: Development and production bundling
+- uuid: For generating unique identifiers for list items
+- Jest: Unit testing framework
 
 ## ⚙️Setup and Installation
 
 Step-by-step instructions to set up the project locally:
 
-    
-
+   
 1. Clone the repository:
 
     git clone https://github.com/ZeynabLiraki/listmanager
+
     cd listmanager
 
 
@@ -59,17 +70,20 @@ Step-by-step instructions to set up the project locally:
     npm start
     
 
-3. Open the application in your browser that is provided for you:
+3. Open your browser at:
 
     http://localhost:9000/
 
 
 
 ## 🧑‍💻Development
-- Source TypeScript files are located in /src/components
-- Stylesheets in /src/assets
-- Webpack handles bundling to /dist
-- Use npm run build for production build       
+
+- Source TypeScript files are in:          /src/core  and src/templates
+- Stylesheets in:                         /src/assets
+- Webpack handles bundling to:           /dist
+- Tests are in:                         /src/test
+- Build for production with:
+       npm run build       
 
     
 ## ✅Testing
@@ -87,7 +101,14 @@ You can access the live version of the application here:
 
 ## 🔮Further Improvements
 
-- Implement drag-and-drop reordering and add animations for adding/removing items.
-- Adding Edit functionality for each Item
+✨ Add drag-and-drop support for item reordering
+
+📝 Implement edit functionality for existing list items
+
+🧪 Increase test coverage and add integration tests
+
+🌙 Add dark mode toggle
+
+💾 Persist list data using localStorage or a backend API
 
 

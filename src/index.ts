@@ -1,4 +1,4 @@
-import { ListManager } from "./components/ListManager";
+import { ListManager } from "./core/ListManager";
 import "./assets/style.css";
 
 document.addEventListener("DOMContentLoaded", () => {
