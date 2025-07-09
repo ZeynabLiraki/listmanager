@@ -18,15 +18,16 @@ This project demonstrates clean UI integration, accessibility, best practices, a
   - [Live Demo](#live-demo)
   - [Further Improvements](#further-improvements)
 
-## 🚀 Introduction
+## 🚀Introduction
 
 This project implements a List Manager UI component using:
-TypeScript for static typing and OOP design
-jQuery for DOM manipulation and event handling
-Bootstrap 5 for responsive styling and layout
-The ListManager class encapsulates the entire UI and logic for managing a to-do list with support for adding items through input and then click on button or press Enter key, removing each items by nuttons, gettingItems and clearing the list. Additionally, It includes accessibility attributes for screen readers and keyboard interaction.
+- TypeScript for static typing and OOP design
+- jQuery for DOM manipulation and event handling
+- Bootstrap 5 for responsive styling and layout
+- The ListManager class encapsulates the entire UI and logic for managing a to-do list with support   for adding items through input and then click on button or press Enter key, removing each items, getting Items and clearing the list. 
+- accessibility attributes for screen readers and keyboard interaction.
 
-## 🛠 Technologies Used
+## 🛠Technologies Used
 
 Mention the technologies and frameworks used in the project:
 - TypeScript for type-safe, modular JavaScript
@@ -36,7 +37,7 @@ Mention the technologies and frameworks used in the project:
 - uuid for generating unique IDs for list items
 - Jest (for testing)
 
-## ⚙️ Setup and Installation
+## ⚙️Setup and Installation
 
 Step-by-step instructions to set up the project locally:
 
@@ -64,27 +65,27 @@ Step-by-step instructions to set up the project locally:
 
 
 
-## 🧑‍💻 Development
+## 🧑‍💻Development
 - Source TypeScript files are located in /src/components
 - Stylesheets in /src/assets
 - Webpack handles bundling to /dist
 - Use npm run build for production build       
 
     
-## ✅ Testing
+## ✅Testing
 
 1. Run the tests:
     
     npm test
     
 
-## 🚀 Live Demo
+## 🚀Live Demo
 
 You can access the live version of the application here:
 [Live Demo](https://listmanager-os8wg3is7-zeynab-lirakis-projects.vercel.app/)
           
 
-## 🔮 Further Improvements
+## 🔮Further Improvements
 
 - Implement drag-and-drop reordering and add animations for adding/removing items.
 - Adding Edit functionality for each Item
