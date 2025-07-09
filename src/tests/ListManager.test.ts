@@ -1,4 +1,4 @@
-import { ListManager } from "./ListManager";
+import { ListManager } from "../components/ListManager";
 
 describe("ListManager", () => {
   let container: HTMLElement;
