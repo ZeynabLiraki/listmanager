@@ -6,7 +6,8 @@
     "outDir": "./dist",
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["jest", "node"]
   },
-  "include": ["src"]
+  "include": ["src", "jest.setup.ts", "global.d.ts"]
 }

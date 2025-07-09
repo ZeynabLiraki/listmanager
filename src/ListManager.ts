@@ -16,6 +16,8 @@ export class ListManager {
   private $list!: JQuery<HTMLUListElement>;
   private config: ListManagerConfig;
 
+  private items: { id: string; text: string }[] = [];
+
   constructor(containerId: string, config: ListManagerConfig = {}) {
     const $container = $(`#${containerId}`);
     if ($container.length === 0) {
@@ -32,27 +34,38 @@ export class ListManager {
 
   private renderUI(): void {
     const html = `
-     <div class="card shadow-sm rounded-4 p-4 border-0" style="max-width: 400px; margin: auto;">
-      <h4 class="mb-3 fw-bold text-primary">To-Do List</h4>
+    <div class="card shadow-sm rounded-4 p-4 border-0" style="max-width: 400px; margin: auto;">
+      <h4 id="list-title" class="mb-3 fw-bold text-primary">To-Do List</h4>
+      
       <div class="input-group mb-3">
         <input 
           type="text" 
           id="item-input" 
           class="form-control ${this.config.inputClass ?? ""}" 
-          placeholder="Enter item" 
+          placeholder="Enter item"
+          aria-labelledby="list-title item-input-label"
+          aria-describedby="item-input-description"
         />
+        <div id="item-input-label" class="sr-only">Add new to-do item</div>
+        <div id="item-input-description" class="sr-only">Type your item and press the Add button or Enter key</div>
+
         <button 
           id="add-button" 
-          class="btn btn-primary ml-3 ${this.config.buttonClass ?? ""}">
+          class="btn btn-primary ml-3 ${this.config.buttonClass ?? ""}"
+          aria-label="Add item to the list">
           Add Item
         </button>
       </div>
+      
       <ul 
         id="item-list" 
-        class="list-group gap-2 ${this.config.listClass ?? ""}">
+        class="list-group gap-2 ${this.config.listClass ?? ""}"
+        role="list"
+        aria-label="List of items">
       </ul>
     </div>
-    `;
+  `;
+
     this.$container.html(html);
     this.$input = this.$container.find(
       "#item-input"
@@ -71,7 +84,15 @@ export class ListManager {
     });
 
     this.$list.on("click", ".remove-button", (e: JQuery.ClickEvent) => {
-      $(e.currentTarget).closest("li").remove();
+      const $li = $(e.currentTarget).closest("li");
+      const id = $li.attr("data-id");
+
+      if (id) {
+        this.items = this.items.filter((item) => item.id !== id);
+      }
+
+      $li.remove();
+
       this.$input[0]?.focus();
     });
   }
@@ -82,18 +103,24 @@ export class ListManager {
 
     const itemId = uuidv4();
 
+    this.items.push({ id: itemId, text: value });
+
     const $item = $(`
       <li 
-        class="list-group-item d-flex justify-content-between align-items-center border rounded px-3 py-2 shadow-sm ${
-          this.config.itemClass ?? ""
-        }" 
-        data-id="${itemId}">
+        class="list-group-item d-flex justify-content-between align-items-center border rounded px-3 py-2
+        shadow-sm ${this.config.itemClass ?? ""}" 
+        data-id="${itemId}"
+        role="listitem"
+        aria-label="Item: ${value}"
+        >
         <span>${value}</span>
         <button 
           class="btn btn-outline-danger btn-sm remove-button bg-danger-subtle ${
             this.config.removeButtonClass ?? ""
           }" 
-          title="Remove">
+          title="Remove"
+          aria-label="Remove item: ${value}"
+          >
           ✕
         </button>
       </li>
@@ -110,10 +137,11 @@ export class ListManager {
       const text = $(this).clone().children().remove().end().text().trim();
       if (id && text) items.push({ id, text });
     });
-    return items;
+    return [...this.items];
   }
 
   public clearList(): void {
+    this.items = [];
     this.$list.empty();
   }
 }

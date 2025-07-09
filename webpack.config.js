@@ -33,6 +33,7 @@ module.exports = {
   devServer: {
     static: {
       directory: path.join(__dirname, "dist"),
+      publicPath: "/",
     },
     compress: true,
     port: 9000,
