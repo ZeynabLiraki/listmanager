@@ -137,7 +137,7 @@ export class ListManager {
       const text = $(this).clone().children().remove().end().text().trim();
       if (id && text) items.push({ id, text });
     });
-    return [...this.items];
+    return items;
   }
 
   public clearList(): void {
