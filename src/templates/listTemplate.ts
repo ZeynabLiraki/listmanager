@@ -5,6 +5,10 @@ export function getListTemplate(config: {
 }): string {
   return `
     <div class="card shadow-sm rounded-4 p-4 border-0" style="max-width: 400px; margin: auto;">
+      <div class="flex">
+         <button id="show-modal-items" class="btn btn-secondary mb-3">Show all Items</button>
+         <button id="clear-list" class="btn btn-secondary mb-3" >Clear List</button>
+      </div>
       <h4 id="list-title" class="mb-3 fw-bold text-primary">To-Do List</h4>
       <div class="input-group mb-3">
         <input 

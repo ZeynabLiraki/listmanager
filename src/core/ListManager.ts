@@ -7,6 +7,7 @@ import {
   createElementFromHTML,
 } from "./domHelpers";
 import { ListManagerCore } from "./ListManagerCore";
+import getModalTemlate from "../templates/modalListTemplate";
 
 interface ListManagerConfig {
   inputClass?: string;
@@ -14,6 +15,8 @@ interface ListManagerConfig {
   listClass?: string;
   itemClass?: string;
   removeButtonClass?: string;
+  showButtonClass?: string;
+  clearButtonClass?: string;
 }
 
 export class ListManager {
@@ -23,13 +26,16 @@ export class ListManager {
   private $list!: JQuery<HTMLUListElement>;
   private config: ListManagerConfig;
   private core: ListManagerCore;
+  private $showModalButton!: JQuery<HTMLButtonElement>;
+  private $clearButton!: JQuery<HTMLButtonElement>;
 
   constructor(containerId: string, config: ListManagerConfig = {}) {
     this.$container = getElementById<HTMLElement>(containerId);
     this.config = config;
-    this.core = new ListManagerCore();
+    this.core = ListManagerCore.getInstance();
 
     this.renderUI();
+    this.renderInitialItems();
     this.bindEvents();
     this.$input[0]?.focus();
   }
@@ -38,6 +44,9 @@ export class ListManager {
     const html = getListTemplate(this.config);
     setInnerHTML(this.$container, html);
 
+    const modalHtml = createElementFromHTML(getModalTemlate());
+    this.$container.append(modalHtml);
+
     this.$input = this.$container.find(
       "#item-input"
     ) as JQuery<HTMLInputElement>;
@@ -45,6 +54,62 @@ export class ListManager {
       "#add-button"
     ) as JQuery<HTMLButtonElement>;
     this.$list = this.$container.find("#item-list") as JQuery<HTMLUListElement>;
+
+    this.$clearButton = this.$container.find(
+      "#clear-list"
+    ) as JQuery<HTMLButtonElement>;
+    this.$showModalButton = this.$container.find(
+      "#show-modal-items"
+    ) as JQuery<HTMLButtonElement>;
+  }
+
+  private renderInitialItems(): void {
+    const items = this.core.getItems();
+
+    for (const item of items) {
+      const itemHtml = getListItemTemplate(
+        item.id,
+        item.text,
+        this.config.removeButtonClass,
+        this.config.itemClass
+      );
+      const $item = createElementFromHTML(itemHtml);
+
+      $item.find(".remove-button").on("click", () => {
+        this.core.removeItem(item.id);
+        $item.remove();
+        focusElement(this.$input);
+      });
+
+      this.$list.append($item);
+    }
+  }
+
+
+    private showAllItemList(): void {
+    const items = this.getItemObjects();
+
+    const $modal = this.$container.find("#list-modal");
+    const $modalList = $modal.find("#modal-list");
+    $modalList.empty();
+
+    if (items.length === 0) {
+      $modalList.append(`<p>List is eampty!</p>`);
+    } else {
+      items.forEach((item) => {
+        const $li = $("<li>").text(item.text).attr("aria-label", item.text);
+        $modalList.append($li);
+      });
+    }
+
+    $modal.show();
+
+    this.$container
+      .find("#close-modal")
+      .off("click")
+      .on("click", () => {
+        $modal.hide();
+      });
   }
 
   private bindEvents(): void {
@@ -55,6 +120,10 @@ export class ListManager {
         this.addItemFromInput();
       }
     });
+
+    this.$clearButton.on("click", () => this.clearList());
+
+    this.$showModalButton.on("click", () => this.showAllItemList());
   }
 
   private addItemFromInput(): void {
@@ -91,4 +160,3 @@ export class ListManager {
     this.$list.empty();
   }
 }
-
